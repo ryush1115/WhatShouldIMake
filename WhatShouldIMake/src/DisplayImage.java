@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  */
 public class DisplayImage {
 	
-	public static void DisplayImage(String imageURL) {
+	public static ImageIcon DisplayImage(String imageURL) {
 		
 		// Import image from URL
 		Image image = null;
@@ -26,8 +26,8 @@ public class DisplayImage {
 		}
 		
 		// Create frame
-		JFrame frame = new JFrame();
-		// frame.setSize(600, 600);
+//		JFrame frame = new JFrame();
+//		frame.setSize(600, 600);
 		
 		// Adjust size of image
 		ImageIcon icon1 = new ImageIcon(image);
@@ -43,14 +43,14 @@ public class DisplayImage {
 		ImageIcon icon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH));
 		
 		// Add image icon to frame and display
-		JLabel label = new JLabel(icon);
+//		JLabel label = new JLabel(icon);
 		
-		frame.add(label);
-		frame.setDefaultCloseOperation
-		(JFrame.EXIT_ON_CLOSE);
+//		frame.add(label);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.pack();
-		frame.setVisible(true);
+//		frame.pack();
+//		frame.setVisible(true);
 		
+		return icon;
 	}
 }
