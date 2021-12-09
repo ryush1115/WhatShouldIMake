@@ -4,25 +4,24 @@ import java.util.Scanner;
 public class UserControl {
 
 	public static void main(String[] args) {
-		// Set up the scanner and welcome user
-		Scanner sc = new Scanner(System.in);
 		System.out.println("I'm here to help you decide what to make!");
 				
 		// initialize the UserControl class
-		UserControl gc = new UserControl();
+		UserControl uc = new UserControl();
 				
 		// Run the "run" method while user wants to continue looking for recipes
 		while (true) {
 		// main method that controls the rounds of the recipe search
-			gc.run(sc);
+			Scanner sc = new Scanner(System.in);
+			uc.run(sc);
 					
 			// ask if the user wants to start the entire process again
 			System.out.println("--------------------");
 			System.out.println("Do you want to find recipes with different ingredients?");
 					
-			boolean check = gc.askYesNo(sc);
+			boolean check = uc.askYesNo(sc);
 			if (!check) {
-				System.out.println("Bon Appetit!");
+				System.out.println("Good Bye!");
 				sc.close();
 				break;
 			}
@@ -50,6 +49,8 @@ public class UserControl {
         // filter for health preferences
         ArrayList<String> healthLabelsList = fr.createLabelsList(recipeResults, "health");
         System.out.println("Please select all health restrictions out of the following (comma separated list): " + healthLabelsList);
+        System.out.println("Type \"None\" for all recipes");
+        
         String healthInput = sc.nextLine();
         String[] healthPreference = healthInput.split(",");
         ArrayList<Recipe> healthFilteredRecipeList = fr.filterRecipes(recipeResults, "health", healthPreference);
@@ -61,6 +62,7 @@ public class UserControl {
         // filter for dietary preferences
         ArrayList<String> dietLabelsList = fr.createLabelsList(healthFilteredRecipeList, "diet");
         System.out.println("Please select one dietary option out of the following: " + dietLabelsList);
+        System.out.println("Type \"None\" for all recipes");
         String dietaryInput = sc.next();
         String[] dietaryPreference = dietaryInput.split(",");
         ArrayList<Recipe> dietFilteredRecipeList = fr.filterRecipes(healthFilteredRecipeList, "diet", dietaryPreference);
@@ -69,24 +71,31 @@ public class UserControl {
         System.out.println(dietFilteredRecipeList.size());
         System.out.println(dietFilteredRecipeList.get(0).getName());
 		
-//        int counter = 1;
-//        // Run the "run" method while user wants to look at different recipes
-//     	while (true) {
-//     	// main method that controls the rounds of the recipe search
-//     		
-//     		System.out.println("--------------------");
-//     		System.out.println("Do you want to find recipes with different ingredients?");
-//     					
-//     		boolean check = gc.askYesNo(sc);
-//     		if (!check) {
-//     			System.out.println("Bon Appetit!");
-//     			sc.close();
-//     			break;
-//     		}
-//     	}
-//		System.out.println(dietFilteredRecipeList.get(0).getName());
-//		
-        
+        // initialize the UserControl class
+     	UserControl uc2 = new UserControl();
+     		
+        int counter = 1;
+        // Run the "run" method while user wants to look at different recipes
+     	while (true) {
+     	// main method that controls the rounds of the recipe search
+     		
+     		System.out.println("--------------------");
+     		System.out.println("Do you want to find another recipe with the same ingredients?");
+     					
+     		boolean check = uc2.askYesNo(sc);
+     		
+     		if (counter == dietFilteredRecipeList.size()) {
+     			System.out.println("There are no more recipes that meet your criteria");
+     			break;
+     		}
+     		if (!check) {
+     			System.out.println("Bon Appetit!");
+     			break;
+     		}
+     		
+     		System.out.println(dietFilteredRecipeList.get(counter).getName());
+     		counter += 1;
+     	}
 	}
 	
 	/**
