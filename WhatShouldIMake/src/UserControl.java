@@ -30,18 +30,22 @@ public class UserControl {
 	
 	public void run(Scanner sc) {
 		
-//		System.out.println("Please input your name: ");
-//		String humanName = sc.next();
-//		System.out.println("Welcome " + humanName);
-//		
-//		System.out.println("Please enter 2 ingredients you have in the fridge with a space in the middle (e.g. chicken bean): ");
-//		String ingredient1 = sc.next();
-//		String ingredient2 = sc.next();
-//		
-		ApiCall obj = new ApiCall();
-		String ingredient1 = "chicken";
-		String ingredient2 = "bean";
+		System.out.println("Please input your name: ");
+		String humanName = sc.next();
+		System.out.println("Welcome " + humanName);
 		
+		System.out.println("Please enter 2 ingredients you have in the fridge (comma separated list e.g. chicken, bean): ");
+		String ingredientInput = sc.next();
+		ingredientInput += sc.nextLine();
+		String[] ingredients = ingredientInput.split(",");
+		String ingredient1 = ingredients[0];
+		String ingredient2 = ingredients[1];
+		System.out.println(ingredient1 + ingredient2);
+		
+		ApiCall obj = new ApiCall();
+//		String ingredient1 = "chicken";
+//		String ingredient2 = "bean";
+//		
         ArrayList<Recipe> recipeResults = obj.sendGet(ingredient1, ingredient2);
 		
         FilterRecipes fr = new FilterRecipes();
@@ -50,8 +54,9 @@ public class UserControl {
         ArrayList<String> healthLabelsList = fr.createLabelsList(recipeResults, "health");
         System.out.println("Please select all health restrictions out of the following (comma separated list): " + healthLabelsList);
         System.out.println("Type \"None\" for all recipes");
-        
-        String healthInput = sc.nextLine();
+        String healthInput = sc.next();
+        healthInput += sc.nextLine();
+        System.out.println(healthInput);
         String[] healthPreference = healthInput.split(",");
         ArrayList<Recipe> healthFilteredRecipeList = fr.filterRecipes(recipeResults, "health", healthPreference);
         
@@ -69,6 +74,7 @@ public class UserControl {
         
         System.out.println("Printing filtered recipe list");
         System.out.println(dietFilteredRecipeList.size());
+        System.out.println("--------------------");
         System.out.println(dietFilteredRecipeList.get(0).getName());
 		
         // initialize the UserControl class
