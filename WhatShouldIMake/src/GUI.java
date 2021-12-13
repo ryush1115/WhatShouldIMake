@@ -70,7 +70,6 @@ public class GUI implements ActionListener {
 		for (int i = 0; i < ingredients.length; i++) {
 			ingredientsString = ingredientsString + "<br>" + "- " + ingredients[i];
 		}
-		System.out.println(ingredientsString);
 		
 		label1 = new JLabel("<html>" + "Recipe Ingredients" + ingredientsString + "</html>"); // getIngredients
 		
