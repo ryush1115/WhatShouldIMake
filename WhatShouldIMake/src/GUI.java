@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -14,11 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.Desktop;
-import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 
 /**
  * Creates User Interface
@@ -28,31 +31,81 @@ import java.net.URL;
 public class GUI implements ActionListener {
 
 	private String urlString;
-	private int count = 0;
 	private JLabel label1;
 	private JLabel label2;
 	private JFrame frame;
-	private JPanel panel;
+	private JPanel panelLeft;
+	private JPanel panelRight;
 	private JButton button;
+	
+	// for debugging
+	private String[] ingredients = new String[] {"apple", "tomato", "more tomato", "onion", "pasta", "more pasta"};
+	
 
 	public GUI() {
+		// Create frame
 		frame = new JFrame();
-		panel = new JPanel();
-
-		button = new JButton("Open recipe");
+		
+		// Create left panel
+		panelLeft = new JPanel(new GridBagLayout());
+		frame.add(panelLeft, BorderLayout.WEST);
+        panelLeft.setBorder(BorderFactory.createTitledBorder("Your Recipe"));
+        
+        // Create button to open web site with recipe
+        button = new JButton("Recipe name" + " - Click to open");
 		button.addActionListener(this);
-		button.setPreferredSize(new Dimension(40, 40));
+        
+		// Adjust format of button
+        GridBagConstraints buttonConstraints = new GridBagConstraints();
+        buttonConstraints.fill = GridBagConstraints.HORIZONTAL;
+        buttonConstraints.insets = new Insets(10, 10, 10, 10);
+        buttonConstraints.weighty = 5;
+        buttonConstraints.gridy = 0;
+		
+        // Add button to panel
+		panelLeft.add(button, buttonConstraints);
+		
+		// Create label for recipe ingredients
+		String ingredientsString = "<br>";
+		for (int i = 0; i < ingredients.length; i++) {
+			ingredientsString = ingredientsString + "<br>" + "- " + ingredients[i];
+		}
+		System.out.println(ingredientsString);
+		
+		label1 = new JLabel("<html>" + "Recipe Ingredients" + ingredientsString + "</html>"); // getIngredients
+		
+		// Adjust format of ingredient list
+        GridBagConstraints label1Constraints = new GridBagConstraints();
+        label1Constraints.anchor = GridBagConstraints.WEST;
+        label1Constraints.gridy = 1;
+        label1Constraints.weightx = 1;
+        label1Constraints.weighty = 1;
+        label1Constraints.insets = new Insets(10, 10, 10, 10);
+		
+		// Add label to panel
+		panelLeft.add(label1, label1Constraints);	
 
-		label1 = new JLabel("Recipe name"); // Recipe.getName() - needs to be static
-		label2 = new JLabel(DisplayImage("https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg")); // Recipe.getIamgeUrl() - needs to be static
-
-		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.setLayout(new GridLayout(0, 1)); // figure out what best format is
-		panel.add(label1);
-		panel.add(button);
-		panel.add(label2);
-
-		frame.add(panel, BorderLayout.CENTER);
+		// Create right panel
+		panelRight = new JPanel(new GridBagLayout());
+		frame.add(panelRight, BorderLayout.EAST);
+		panelRight.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		
+		// Create label for picture
+        label2 = new JLabel(DisplayImage("https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg")); // Recipe.getIamgeUrl() - needs to be static
+        
+        // Adjust format of picture label
+        GridBagConstraints label2Constraints = new GridBagConstraints();
+        label2Constraints.anchor = GridBagConstraints.WEST;
+        label2Constraints.gridx = 0;
+        label2Constraints.gridy = 0;
+        label2Constraints.weightx = 0.5;
+        label2Constraints.weighty = 1;
+        label2Constraints.insets = new Insets(5, 10, 5, 10);
+        
+        // /Add label to panel
+		panelRight.add(label2, label2Constraints);
+		
+		// Pack and close frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("What should I make");
 		frame.pack();
@@ -88,7 +141,7 @@ public class GUI implements ActionListener {
 		int height = icon1.getIconHeight();
 
 		Double ratio = ((double) width) / ((double) height);
-		int newHeight = 600; // depends on final format
+		int newHeight = 400; // depends on final format
 
 		Double newWidth1 = (newHeight * ratio);
 		int newWidth = newWidth1.intValue();
