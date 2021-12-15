@@ -35,6 +35,7 @@ public class UserControl {
 		System.out.println("Please input your name: ");
 		String humanName = sc.next();
 		System.out.println("Welcome " + humanName);
+		System.out.println("Something changed");
 		
 		System.out.println("Please enter 2 ingredients you have in the fridge (comma separated list e.g. chicken, bean): ");
 		String ingredientInput = sc.next();
@@ -58,13 +59,9 @@ public class UserControl {
         System.out.println("Type \"None\" for all recipes");
         String healthInput = sc.next();
         healthInput += sc.nextLine();
-        System.out.println(healthInput);
         String[] healthPreference = healthInput.split(",");
         ArrayList<Recipe> healthFilteredRecipeList = fr.filterRecipes(recipeResults, "health", healthPreference);
         
-        System.out.println("Printing filtered recipe list size");
-		System.out.println(healthFilteredRecipeList.size());
-		
         
         // filter for dietary preferences
         ArrayList<String> dietLabelsList = fr.createLabelsList(healthFilteredRecipeList, "diet");
@@ -74,8 +71,7 @@ public class UserControl {
         String[] dietaryPreference = dietaryInput.split(",");
         ArrayList<Recipe> dietFilteredRecipeList = fr.filterRecipes(healthFilteredRecipeList, "diet", dietaryPreference);
         
-        System.out.println("Printing filtered recipe list");
-        System.out.println(dietFilteredRecipeList.size());
+        System.out.println("Printing your recipe suggestion. Check your computer for a UI tab!");
         System.out.println("--------------------");
         System.out.println(dietFilteredRecipeList.get(0).getName());
         GUI gui = new GUI(dietFilteredRecipeList.get(0).getSourceUrl());
