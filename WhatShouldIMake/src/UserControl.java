@@ -10,11 +10,16 @@ public class UserControl {
 				
 		// initialize the UserControl class
 		UserControl uc = new UserControl();
-				
+		// initialize scanner
+		Scanner sc = new Scanner(System.in);
+		// ask for user name to welcome
+		System.out.println("Please input your name: ");
+		String humanName = sc.next();
+		System.out.println("Welcome " + humanName);
+		
 		// Run the "run" method while user wants to continue looking for recipes
 		while (true) {
 		// main method that controls the rounds of the recipe search
-			Scanner sc = new Scanner(System.in);
 			uc.run(sc);
 					
 			// ask if the user wants to start the entire process again
@@ -31,84 +36,80 @@ public class UserControl {
 	}
 	
 	public void run(Scanner sc) {
-		
-		System.out.println("Please input your name: ");
-		String humanName = sc.next();
-		System.out.println("Welcome " + humanName);
-		
+		// ask user input on ingredients
 		System.out.println("Please enter 2 ingredients you have in the fridge (comma separated list e.g. chicken, bean): ");
 		String ingredientInput = sc.next();
 		ingredientInput += sc.nextLine();
 		String[] ingredients = ingredientInput.split(",");
 		String ingredient1 = ingredients[0];
 		String ingredient2 = ingredients[1];
-		System.out.println(ingredient1 + ingredient2);
 		
+		// make the API call
 		ApiCall obj = new ApiCall();
-//		String ingredient1 = "chicken";
-//		String ingredient2 = "bean";
-//		
         ArrayList<Recipe> recipeResults = obj.sendGet(ingredient1, ingredient2);
+		if (recipeResults.size() == 0) {
+			System.out.println("There are no recipes that meet your ingredient criteria");
+		}
 		
-        FilterRecipes fr = new FilterRecipes();
-        
-        // filter for health preferences
-        ArrayList<String> healthLabelsList = fr.createLabelsList(recipeResults, "health");
-        System.out.println("Please select all health restrictions out of the following (comma separated list): " + healthLabelsList);
-        System.out.println("Type \"None\" for all recipes");
-        String healthInput = sc.next();
-        healthInput += sc.nextLine();
-        System.out.println(healthInput);
-        String[] healthPreference = healthInput.split(",");
-        ArrayList<Recipe> healthFilteredRecipeList = fr.filterRecipes(recipeResults, "health", healthPreference);
-        
-        System.out.println("Printing filtered recipe list size");
-		System.out.println(healthFilteredRecipeList.size());
-		
-        
-        // filter for dietary preferences
-        ArrayList<String> dietLabelsList = fr.createLabelsList(healthFilteredRecipeList, "diet");
-        System.out.println("Please select one dietary option out of the following: " + dietLabelsList);
-        System.out.println("Type \"None\" for all recipes");
-        String dietaryInput = sc.next();
-        String[] dietaryPreference = dietaryInput.split(",");
-        ArrayList<Recipe> dietFilteredRecipeList = fr.filterRecipes(healthFilteredRecipeList, "diet", dietaryPreference);
-        
-        System.out.println("Printing filtered recipe list");
-        System.out.println(dietFilteredRecipeList.size());
-        System.out.println("--------------------");
-        System.out.println(dietFilteredRecipeList.get(0).getName());
-        GUI gui = new GUI(dietFilteredRecipeList.get(0).getSourceUrl());
-        gui.runGUI(dietFilteredRecipeList.get(0).getName(), dietFilteredRecipeList.get(0).getIngredients(), dietFilteredRecipeList.get(0).getImageUrl());
-		
-        // initialize the UserControl class
-     	UserControl uc2 = new UserControl();
-     		
-        int counter = 1;
-        // Run the "run" method while user wants to look at different recipes
-     	while (true) {
-     	// main method that controls the rounds of the recipe search
-     		
-     		System.out.println("--------------------");
-     		System.out.println("Do you want to find another recipe with the same ingredients?");
-     					
-     		boolean check = uc2.askYesNo(sc);
-     		
-     		if (counter == dietFilteredRecipeList.size()) {
-     			System.out.println("There are no more recipes that meet your criteria");
-     			break;
-     		}
-     		if (!check) {
-     			System.out.println("Bon Appetit!");
-     			break;
-     		}
-     		
-     		System.out.println(dietFilteredRecipeList.get(counter).getName());
-     		GUI gui1 = new GUI(dietFilteredRecipeList.get(counter).getSourceUrl());
-            gui1.runGUI(dietFilteredRecipeList.get(counter).getName(), dietFilteredRecipeList.get(counter).getIngredients(), dietFilteredRecipeList.get(counter).getImageUrl());
-     		counter += 1;
-     		
-     	}
+		else {
+	        // initialize FilterRecipes
+	        FilterRecipes fr = new FilterRecipes();
+	        
+	        // filter for health preferences
+	        ArrayList<String> healthLabelsList = fr.createLabelsList(recipeResults, "health");
+	        System.out.println("Please select all health restrictions out of the following (comma separated list): " + healthLabelsList);
+	        System.out.println("Type \"None\" for all recipes");
+	        String healthInput = sc.next();
+	        healthInput += sc.nextLine();
+	        String[] healthPreference = healthInput.split(",");
+	        ArrayList<Recipe> healthFilteredRecipeList = fr.filterRecipes(recipeResults, "health", healthPreference);
+	        
+	        
+	        // filter for dietary preferences
+	        ArrayList<String> dietLabelsList = fr.createLabelsList(healthFilteredRecipeList, "diet");
+	        System.out.println("Please select one dietary option out of the following: " + dietLabelsList);
+	        System.out.println("Type \"None\" for all recipes");
+	        String dietaryInput = sc.next();
+	        String[] dietaryPreference = dietaryInput.split(",");
+	        ArrayList<Recipe> dietFilteredRecipeList = fr.filterRecipes(healthFilteredRecipeList, "diet", dietaryPreference);
+	        
+	        // printing the final recipe result
+	        System.out.println("Printing your recipe suggestion. Check your computer for a UI tab that has opened!");
+	        System.out.println("--------------------");
+	        System.out.println(dietFilteredRecipeList.get(0).getName());
+	        // call the GUI class to publish UI
+	        GUI gui = new GUI(dietFilteredRecipeList.get(0).getSourceUrl());
+	        gui.runGUI(dietFilteredRecipeList.get(0).getName(), dietFilteredRecipeList.get(0).getIngredients(), dietFilteredRecipeList.get(0).getImageUrl());
+			
+	        // initialize the UserControl class
+	     	UserControl uc2 = new UserControl();
+	     	
+	     	// ask if the user wants to see more recipes with the same ingredients/ criteria
+	        int counter = 1;
+	        while (true) {
+	     	// continue running until the user says no or we run out of recipes with the same ingredients/ criteria
+	     		
+	     		System.out.println("--------------------");
+	     		System.out.println("Do you want to find another recipe with the same ingredients?");
+	     					
+	     		boolean check = uc2.askYesNo(sc);
+	     		
+	     		if (counter == dietFilteredRecipeList.size()) {
+	     			System.out.println("There are no more recipes that meet your criteria");
+	     			break;
+	     		}
+	     		if (!check) {
+	     			System.out.println("Bon Appetit!");
+	     			break;
+	     		}
+	     		
+	     		System.out.println(dietFilteredRecipeList.get(counter).getName());
+	     		GUI gui1 = new GUI(dietFilteredRecipeList.get(counter).getSourceUrl());
+	            gui1.runGUI(dietFilteredRecipeList.get(counter).getName(), dietFilteredRecipeList.get(counter).getIngredients(), dietFilteredRecipeList.get(counter).getImageUrl());
+	     		counter += 1;
+	     		
+	     	}
+		}
 	}
 	
 	/**
