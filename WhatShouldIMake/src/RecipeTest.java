@@ -45,7 +45,6 @@ class RecipeTest {
 		System.out.println(Arrays.deepToString(this.recipeResults.get(0).getIngredients()).split(",").length);
 		assertEquals(26, Arrays.deepToString(this.recipeResults.get(0).getIngredients()).split(",").length);
 		String[] ingredientsList = this.recipeResults.get(0).getIngredients();
-		//System.out.println(ingredientsList);
 		assertTrue(ingredientsList[0].contains("olive oil"));
 		assertTrue(ingredientsList[1].contains("red onions"));
 		assertTrue(ingredientsList[2].contains("red pepper"));
@@ -53,13 +52,8 @@ class RecipeTest {
 		System.out.println(Arrays.deepToString(this.recipeResults.get(1).getIngredients()).split(",").length);
 		assertEquals(35, Arrays.deepToString(this.recipeResults.get(1).getIngredients()).split(",").length);
 		String[] ingredientsList2 = this.recipeResults.get(1).getIngredients();
-		//System.out.println(Arrays.deepToString(ingredientsList2));
 		assertTrue(ingredientsList2[0].contains("chicken broth"));
 		assertTrue(ingredientsList2[1].contains("olive oil"));
-//		assertTrue(ingredientsList2[2].contains("onion"));
-//		assertTrue(ingredientsList2[0].contains("chicken broth"));
-//		assertTrue(ingredientsList2[1].contains("olive oil"));
-//		assertTrue(ingredientsList2[2].contains("onion"));
 
 	}
 	
