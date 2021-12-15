@@ -1,15 +1,22 @@
-
+/***
+ * Recipe class is used to get access to the components of the recipe API call
+ * @author amyry
+ *
+ */
 public class Recipe {
-    private String name;
+    /***
+     * initialize variables
+     */
+	private String name;
     private String imageUrl;
     private String sourceUrl;
     private String[] ingredients;
     private String[] dietLabels;
     private String[] healthLabels;
-    private String pushId;
-
-    public Recipe() {};
-
+    
+    /***
+     * initialize constructor
+     */
     public Recipe(String name, String imageUrl, String sourceUrl, String ingredients, String dietLabels, String healthLabels) {
         this.name = name;
         this.imageUrl = imageUrl;
@@ -42,14 +49,4 @@ public class Recipe {
     public String[] getHealthLabels() {
         return healthLabels;
     }
-    
-    public String getPushId() {
-        return pushId;
-    }
-
-    public void setPushId(String pushId) {
-        this.pushId = pushId;
-    }
-
-
 }
