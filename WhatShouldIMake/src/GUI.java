@@ -75,7 +75,7 @@ public class GUI implements ActionListener {
 		
 		// Adjust format of ingredient list
         GridBagConstraints label1Constraints = new GridBagConstraints();
-        label1Constraints.anchor = GridBagConstraints.NORTH;
+        label1Constraints.anchor = GridBagConstraints.WEST;
         label1Constraints.gridy = 1;
         label1Constraints.weightx = 1;
         label1Constraints.weighty = 1;
@@ -90,7 +90,7 @@ public class GUI implements ActionListener {
 		panelRight.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		// Create label for picture
-        label2 = new JLabel(DisplayImage(recipeImageUrl));
+        label2 = new JLabel(displayImage(recipeImageUrl));
         
         // Adjust format of picture label
         GridBagConstraints label2Constraints = new GridBagConstraints();
@@ -105,7 +105,7 @@ public class GUI implements ActionListener {
 		panelRight.add(label2, label2Constraints);
 		
 		// Pack and close frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle("What should I make");
 		frame.pack();
 		frame.setVisible(true);
@@ -117,7 +117,7 @@ public class GUI implements ActionListener {
 	 * @param imageURL
 	 * @return image as icon
 	 */
-	public static ImageIcon DisplayImage(String imageURL) {
+	public static ImageIcon displayImage(String imageURL) {
 
 		// Import image from URL
 		Image image = null;
@@ -135,7 +135,7 @@ public class GUI implements ActionListener {
 		int height = icon1.getIconHeight();
 
 		Double ratio = ((double) width) / ((double) height);
-		int newHeight = 400; // depends on final format
+		int newHeight = 400;
 
 		Double newWidth1 = (newHeight * ratio);
 		int newWidth = newWidth1.intValue();

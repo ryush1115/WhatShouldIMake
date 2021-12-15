@@ -104,7 +104,10 @@ public class UserControl {
      		}
      		
      		System.out.println(dietFilteredRecipeList.get(counter).getName());
+     		GUI gui1 = new GUI(dietFilteredRecipeList.get(counter).getSourceUrl());
+            gui1.runGUI(dietFilteredRecipeList.get(counter).getName(), dietFilteredRecipeList.get(counter).getIngredients(), dietFilteredRecipeList.get(counter).getImageUrl());
      		counter += 1;
+     		
      	}
 	}
 	
