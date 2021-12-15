@@ -3,7 +3,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserControl {
-
+/***
+ * The main class that runs the recipe API
+ * @author Seung Hyun (Amy) Ryu and Lisa Friedmann
+ * Please make sure you install the external Jars: java-json.jar, okhttp-3.9.0.jar, okio-1.13.0.jar 
+ */
 
 	public static void main(String[] args) {
 		System.out.println("I'm here to help you decide what to make!");
