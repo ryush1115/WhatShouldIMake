@@ -76,6 +76,7 @@ public class UserControl {
         System.out.println(dietFilteredRecipeList.size());
         System.out.println("--------------------");
         System.out.println(dietFilteredRecipeList.get(0).getName());
+//        GUI.runGUI(dietFilteredRecipeList.get(0).getName(), dietFilteredRecipeList.get(0).getIngredients(), dietFilteredRecipeList.get(0).getSourceUrl(), dietFilteredRecipeList.get(0).getImageUrl());
 		
         // initialize the UserControl class
      	UserControl uc2 = new UserControl();

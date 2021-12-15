@@ -21,7 +21,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 
 /**
  * Creates User Interface
@@ -30,19 +29,14 @@ import java.util.Arrays;
  */
 public class GUI implements ActionListener {
 
-	private String urlString;
 	private JLabel label1;
 	private JLabel label2;
 	private JFrame frame;
 	private JPanel panelLeft;
 	private JPanel panelRight;
 	private JButton button;
-	
-	// for debugging
-	private String[] ingredients = new String[] {"apple", "tomato", "more tomato", "onion", "pasta", "more pasta"};
-	
 
-	public GUI() {
+	public GUI(String recipeName, String[] recipeIngredients, String recipeSourceUrl, String recipeImageUrl) {
 		// Create frame
 		frame = new JFrame();
 		
@@ -52,7 +46,7 @@ public class GUI implements ActionListener {
         panelLeft.setBorder(BorderFactory.createTitledBorder("Your Recipe"));
         
         // Create button to open web site with recipe
-        button = new JButton("Recipe name" + " - Click to open");
+        button = new JButton(recipeName + " - Click to open");
 		button.addActionListener(this);
         
 		// Adjust format of button
@@ -67,12 +61,11 @@ public class GUI implements ActionListener {
 		
 		// Create label for recipe ingredients
 		String ingredientsString = "<br>";
-		for (int i = 0; i < ingredients.length; i++) {
-			ingredientsString = ingredientsString + "<br>" + "- " + ingredients[i];
+		for (int i = 0; i < recipeIngredients.length; i++) {
+			ingredientsString = ingredientsString + "<br>" + "- " + recipeIngredients[i];
 		}
-		System.out.println(ingredientsString);
 		
-		label1 = new JLabel("<html>" + "Recipe Ingredients" + ingredientsString + "</html>"); // getIngredients
+		label1 = new JLabel("<html>" + "Recipe Ingredients" + ingredientsString + "</html>");
 		
 		// Adjust format of ingredient list
         GridBagConstraints label1Constraints = new GridBagConstraints();
@@ -91,7 +84,7 @@ public class GUI implements ActionListener {
 		panelRight.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		// Create label for picture
-        label2 = new JLabel(DisplayImage("https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg")); // Recipe.getIamgeUrl() - needs to be static
+        label2 = new JLabel(DisplayImage(recipeImageUrl));
         
         // Adjust format of picture label
         GridBagConstraints label2Constraints = new GridBagConstraints();
@@ -112,10 +105,9 @@ public class GUI implements ActionListener {
 		frame.setVisible(true);
 	}
 	
-	// delete and use in main class
-	public static void main(String[] args) {
-		new GUI();
-
+	// to be called to run the GUI
+	public static void runGUI(String recipeName, String[] recipeIngredients, String recipeSourceUrl, String recipeImageUrl) {
+		new GUI(recipeName, recipeIngredients, recipeSourceUrl, recipeImageUrl);
 	}
 
 	/**
@@ -198,7 +190,8 @@ public class GUI implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		openWebPage("https://www.google.com"); // Recipe.getSourceUrl() - sourceURL needs to be static
+		String urlString;
+		openWebPage(urlString);
 	}
 
 }
