@@ -2,10 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import static java.util.Arrays.asList;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class RecipeTest {
@@ -17,11 +14,6 @@ class RecipeTest {
 		
 	Recipe recipe;
 	
-	@BeforeEach
-	void setUp() throws Exception {
-		this.recipe = new Recipe();
-	}
-
 	@Test
 	void getNameTest() {
 		assertEquals("Chicken & bean enchiladas", this.recipeResults.get(0).getName());
