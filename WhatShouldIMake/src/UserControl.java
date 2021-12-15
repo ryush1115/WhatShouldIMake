@@ -126,7 +126,6 @@ public class UserControl {
 	}	
 	
 	public UserControl() {
-		// TODO Auto-generated constructor stub
 	}
 
 

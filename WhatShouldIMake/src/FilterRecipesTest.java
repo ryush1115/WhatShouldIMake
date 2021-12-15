@@ -27,16 +27,23 @@ class FilterRecipesTest {
 	void createLabelsListTest() {
 		assertEquals(3, this.fr.createLabelsList(recipeResults, "diet").size());
 		assertEquals(3, this.fr.createLabelsList(recipeResults, "health").size());
-		ArrayList<String> categories = new ArrayList<String>(Arrays.asList("Dairy-Free, Gluten-Free, Peanut-Free"));
-		System.out.println(categories);
-		System.out.println(this.fr.createLabelsList(recipeResults, "health"));
-		assertTrue(categories.equals(this.fr.createLabelsList(recipeResults, "health")));
+		assertTrue(this.fr.createLabelsList(recipeResults, "health").get(0).contains("Dairy-Free"));
+		assertTrue(this.fr.createLabelsList(recipeResults, "health").get(1).contains("Gluten-Free"));
+		assertTrue(this.fr.createLabelsList(recipeResults, "health").get(2).contains("Peanut-Free"));
+		assertTrue(this.fr.createLabelsList(recipeResults, "diet").get(0).contains("Low-Carb"));
+		assertTrue(this.fr.createLabelsList(recipeResults, "diet").get(1).contains("High-Fiber"));
+		assertTrue(this.fr.createLabelsList(recipeResults, "diet").get(2).contains("Balanced"));
 	}
 	
 	@Test
 	void filterRecipesTest() {
 		String[] healthList = {"Dairy-Free", "Gluten-Free"};
 		assertEquals(8, fr.filterRecipes(recipeResults, "health", healthList).size());
+		String[] healthList2 = {"Dairy-Free"};
+		assertEquals(3,fr.filterRecipes(recipeResults, "health", healthList2).size());
+		String[] healthList3 = {"Gluten-Free"};
+		assertEquals(5,fr.filterRecipes(recipeResults, "health", healthList3).size());
+		
 		String[] dietList = {"Low-Carb"};
 		assertEquals(1, fr.filterRecipes(recipeResults, "diet", dietList).size());
 	}
