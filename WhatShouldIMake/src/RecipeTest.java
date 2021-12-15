@@ -42,41 +42,42 @@ class RecipeTest {
 	
 	@Test
 	void getIngredientsTest() {
-		System.out.println(Arrays.deepToString(this.recipeResults.get(0).getIngredients()).split(",").length);
 		assertEquals(26, Arrays.deepToString(this.recipeResults.get(0).getIngredients()).split(",").length);
 		String[] ingredientsList = this.recipeResults.get(0).getIngredients();
-		//System.out.println(ingredientsList);
 		assertTrue(ingredientsList[0].contains("olive oil"));
 		assertTrue(ingredientsList[1].contains("red onions"));
 		assertTrue(ingredientsList[2].contains("red pepper"));
 
-		System.out.println(Arrays.deepToString(this.recipeResults.get(1).getIngredients()).split(",").length);
 		assertEquals(35, Arrays.deepToString(this.recipeResults.get(1).getIngredients()).split(",").length);
 		String[] ingredientsList2 = this.recipeResults.get(1).getIngredients();
-		//System.out.println(Arrays.deepToString(ingredientsList2));
 		assertTrue(ingredientsList2[0].contains("chicken broth"));
 		assertTrue(ingredientsList2[1].contains("olive oil"));
-//		assertTrue(ingredientsList2[2].contains("onion"));
-//		assertTrue(ingredientsList2[0].contains("chicken broth"));
-//		assertTrue(ingredientsList2[1].contains("olive oil"));
-//		assertTrue(ingredientsList2[2].contains("onion"));
-
 	}
 	
 	@Test
 	void getDietLabelsTest() {
-		System.out.println(Arrays.deepToString(this.recipeResults.get(0).getDietLabels()).split(",").length);
 		assertEquals(1, Arrays.deepToString(this.recipeResults.get(0).getDietLabels()).split(",").length);
-		System.out.println(Arrays.deepToString(this.recipeResults.get(0).getDietLabels()));
-		System.out.println(Arrays.deepToString(this.recipeResults.get(0).getDietLabels()).getClass());
-		String[] dietLabel = {"\"High-Fiber\""};
-		System.out.println(Arrays.deepToString(this.recipeResults.get(0).getDietLabels()).getClass());
-		//assertEquals(dietLabel, this.recipeResults.get(0).getDietLabels());
+		assertTrue(this.recipeResults.get(0).getDietLabels()[0].contains("High-Fiber"));
+		
+		assertEquals(2, Arrays.deepToString(this.recipeResults.get(5).getDietLabels()).split(",").length);
+		assertTrue(this.recipeResults.get(5).getDietLabels()[1].contains("Low-Carb"));
+		
+		assertEquals(1, Arrays.deepToString(this.recipeResults.get(7).getDietLabels()).split(",").length);
+		assertTrue(this.recipeResults.get(7).getDietLabels()[0].contains("Balanced"));
 		
 	}
 	
 	@Test
 	void getHealthLabelsTest() {
+		assertEquals(17, Arrays.deepToString(this.recipeResults.get(0).getHealthLabels()).split(",").length);
+		assertTrue(this.recipeResults.get(0).getHealthLabels()[0].contains("Gluten-Free"));
+		assertTrue(this.recipeResults.get(0).getHealthLabels()[1].contains("Wheat-Free"));
+		assertTrue(this.recipeResults.get(0).getHealthLabels()[2].contains("Egg-Free"));
+		
+		assertEquals(13, Arrays.deepToString(this.recipeResults.get(1).getHealthLabels()).split(",").length);
+		assertTrue(this.recipeResults.get(1).getHealthLabels()[0].contains("Egg-Free"));
+		assertTrue(this.recipeResults.get(1).getHealthLabels()[1].contains("Peanut-Free"));
+		assertTrue(this.recipeResults.get(1).getHealthLabels()[2].contains("Tree-Nut-Free"));
 		
 	}
 

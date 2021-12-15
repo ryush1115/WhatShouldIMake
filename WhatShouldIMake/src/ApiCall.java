@@ -16,16 +16,7 @@ public class ApiCall {
 	
 	public ApiCall() {};
 	
-	//public static final String TAG = ApiCall.class.getSimpleName();
 	private final OkHttpClient httpClient = new OkHttpClient();
-	
-//	public static void main(String[] args) throws Exception {
-//		ApiCall obj = new ApiCall();
-//
-//        System.out.println("Testing 1 - Send Http GET request");
-//        obj.sendGet("chicken", "bean");
-//	}
-//	
 	
 	public ArrayList<Recipe> sendGet(String ingredient1, String ingredient2) {
         
