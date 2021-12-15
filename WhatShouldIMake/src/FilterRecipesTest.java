@@ -30,8 +30,7 @@ class FilterRecipesTest {
 		ArrayList<String> categories = new ArrayList<String>(Arrays.asList("Dairy-Free, Gluten-Free, Peanut-Free"));
 		System.out.println(categories);
 		System.out.println(this.fr.createLabelsList(recipeResults, "health"));
-		//assertEquals(categories, this.fr.createLabelsList(recipeResults, "health"));
-		//assertEquals(categories, this.fr.createLabelsList(recipeResults, "health"));
+		assertTrue(categories.equals(this.fr.createLabelsList(recipeResults, "health")));
 	}
 	
 	@Test
