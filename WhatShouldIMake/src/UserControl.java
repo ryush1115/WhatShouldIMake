@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class UserControl {
+
 
 	public static void main(String[] args) {
 		System.out.println("I'm here to help you decide what to make!");
@@ -81,6 +83,8 @@ public class UserControl {
 	        }
 	        else {
 	        	System.out.println(dietFilteredRecipeList.get(0).getName());
+	        	GUI gui = new GUI(dietFilteredRecipeList.get(0).getSourceUrl());
+	            gui.runGUI(dietFilteredRecipeList.get(0).getName(), dietFilteredRecipeList.get(0).getIngredients(), dietFilteredRecipeList.get(0).getImageUrl());
 	    		
 	            // initialize the UserControl class
 	         	UserControl uc2 = new UserControl();
@@ -104,6 +108,9 @@ public class UserControl {
 	         		}
 	         		// this is the new recipe
 	         		System.out.println(dietFilteredRecipeList.get(counter).getName());
+	         		GUI gui1 = new GUI(dietFilteredRecipeList.get(counter).getSourceUrl());
+	                gui1.runGUI(dietFilteredRecipeList.get(counter).getName(), dietFilteredRecipeList.get(counter).getIngredients(), dietFilteredRecipeList.get(counter).getImageUrl());
+	         		
 	         		counter += 1;
 	         	}
 	        }
