@@ -35,8 +35,14 @@ public class GUI implements ActionListener {
 	private JPanel panelLeft;
 	private JPanel panelRight;
 	private JButton button;
+	private String recipeSourceUrl;
 
-	public GUI(String recipeName, String[] recipeIngredients, String recipeSourceUrl, String recipeImageUrl) {
+	public GUI(String recipeSourceUrl) {
+		this.recipeSourceUrl = recipeSourceUrl;
+	}
+	
+	// to be called to run the GUI
+	public void runGUI(String recipeName, String[] recipeIngredients, String recipeImageUrl) {
 		// Create frame
 		frame = new JFrame();
 		
@@ -62,14 +68,14 @@ public class GUI implements ActionListener {
 		// Create label for recipe ingredients
 		String ingredientsString = "<br>";
 		for (int i = 0; i < recipeIngredients.length; i++) {
-			ingredientsString = ingredientsString + "<br>" + "- " + recipeIngredients[i];
+			ingredientsString = ingredientsString + "<br>" + "- " + recipeIngredients[i].replaceAll("[\"]","");
 		}
 		
 		label1 = new JLabel("<html>" + "Recipe Ingredients" + ingredientsString + "</html>");
 		
 		// Adjust format of ingredient list
         GridBagConstraints label1Constraints = new GridBagConstraints();
-        label1Constraints.anchor = GridBagConstraints.WEST;
+        label1Constraints.anchor = GridBagConstraints.NORTH;
         label1Constraints.gridy = 1;
         label1Constraints.weightx = 1;
         label1Constraints.weighty = 1;
@@ -103,11 +109,7 @@ public class GUI implements ActionListener {
 		frame.setTitle("What should I make");
 		frame.pack();
 		frame.setVisible(true);
-	}
-	
-	// to be called to run the GUI
-	public static void runGUI(String recipeName, String[] recipeIngredients, String recipeSourceUrl, String recipeImageUrl) {
-		new GUI(recipeName, recipeIngredients, recipeSourceUrl, recipeImageUrl);
+
 	}
 
 	/**
@@ -190,8 +192,7 @@ public class GUI implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String urlString;
-		openWebPage(urlString);
+		openWebPage(this.recipeSourceUrl);
 	}
 
 }
