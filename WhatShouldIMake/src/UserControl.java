@@ -6,7 +6,7 @@ public class UserControl {
 
 
 	public static void main(String[] args) {
-		System.out.println("I'm here to help you decide what to make!");
+		System.out.println("I'm here to help you decide what to make! YYYAAA");
 				
 		// initialize the UserControl class
 		UserControl uc = new UserControl();
