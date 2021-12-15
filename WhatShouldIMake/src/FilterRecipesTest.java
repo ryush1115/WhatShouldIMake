@@ -1,19 +1,15 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import static java.util.Arrays.asList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertArrayEquals;
 
 class FilterRecipesTest {
 	ApiCall obj = new ApiCall();
 	String ingredient1 = "chicken";
 	String ingredient2 = "bean";
-	
+	// initialize recipeResults to be used throughout
     ArrayList<Recipe> recipeResults = obj.sendGet(ingredient1, ingredient2);
 		
 	FilterRecipes fr;
@@ -25,8 +21,10 @@ class FilterRecipesTest {
 
 	@Test
 	void createLabelsListTest() {
+		// assert that the size of the labels list are correct
 		assertEquals(3, this.fr.createLabelsList(recipeResults, "diet").size());
 		assertEquals(3, this.fr.createLabelsList(recipeResults, "health").size());
+		// assert that the labels list contains the right values
 		assertTrue(this.fr.createLabelsList(recipeResults, "health").get(0).contains("Dairy-Free"));
 		assertTrue(this.fr.createLabelsList(recipeResults, "health").get(1).contains("Gluten-Free"));
 		assertTrue(this.fr.createLabelsList(recipeResults, "health").get(2).contains("Peanut-Free"));
@@ -37,6 +35,7 @@ class FilterRecipesTest {
 	
 	@Test
 	void filterRecipesTest() {
+		// assert that the filtered recipes are the right size
 		String[] healthList = {"Dairy-Free", "Gluten-Free"};
 		assertEquals(8, fr.filterRecipes(recipeResults, "health", healthList).size());
 		String[] healthList2 = {"Dairy-Free"};
